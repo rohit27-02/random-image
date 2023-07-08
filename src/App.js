@@ -34,7 +34,7 @@ const App = () => {
       try {
         const response = await axios.get('https://api.unsplash.com/photos/random', {
           params: {
-            client_id: api,
+            client_id: "88c4-bwJ2emG2vpVdmpGFBCxuQSjEslbsTadSBoOE5s",
             orientation: "squarish",
           },
         });
