@@ -4,20 +4,19 @@ import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookI
 import axios from 'axios';
 import './App.css'
 
-const RandomImage = ({ imageUrl }) => {
+const RandomImage = ({ imageUrl, link }) => {
   return (
     <div className="random-image-container">
       <h1>Share with friends 💗</h1>
       <img src={imageUrl} alt="Random" className="random-image" />
       <div className="share-buttons">
-      <a href="http://www.twitter.com/share" target='_blank'> <TwitterIcon round={true} size={40} /></a>
-        <FacebookShareButton url={imageUrl}>
+        <FacebookShareButton url={link}>
           <FacebookIcon round={true} size={40} />
         </FacebookShareButton>
-        <TwitterShareButton title='random image' url={imageUrl}>
+        <TwitterShareButton url={link}>
           <TwitterIcon round={true} size={40} />
         </TwitterShareButton>
-        <WhatsappShareButton url={imageUrl}>
+        <WhatsappShareButton url={link}>
           <WhatsappIcon round={true} size={40} />
         </WhatsappShareButton>
       </div>
@@ -27,6 +26,7 @@ const RandomImage = ({ imageUrl }) => {
 
 const App = () => {
   const [imageUrl, setImageUrl] = useState('');
+  const [link, setlink] = useState('');
   const api = process.env.REACT_APP_UNSPLASH_API_KEY;
 
   useEffect(() => {
@@ -38,9 +38,11 @@ const App = () => {
             orientation: "squarish",
           },
         });
+        console.log(response)
         const imageUrl = response.data.urls.regular;
         setImageUrl(imageUrl);
-        
+        setlink(response.data.links.html)
+
 
       } catch (error) {
         console.error('Error fetching random image:', error);
@@ -52,7 +54,7 @@ const App = () => {
 
   return (
     <div className="app">
-      {imageUrl && <RandomImage imageUrl={imageUrl} />}
+      {imageUrl && <RandomImage link={link} imageUrl={imageUrl} />}
     </div>
   );
 };
