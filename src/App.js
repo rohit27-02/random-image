@@ -50,7 +50,7 @@ const App = () => {
     };
 
     fetchRandomImage();
-  }, []);
+  }, [api]);
 
   return (
     <div className="app">
